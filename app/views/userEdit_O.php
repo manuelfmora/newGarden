@@ -7,7 +7,7 @@
             <div class="col-md-4 column">
             </div>
             <div class="col-md-4 well" style="border: 1px solid #dadada; background-color: white;">
-                <form role="form" method="POST" action="?ctrl=modificarusuarioOPE&id=<?= $_GET['id'] ?>">
+                <form role="form" method="POST" action="?c=Login&a=userEdit_O&id=<?= $_GET['id'] ?>">
 
                     <h3>Modificar Usuario</h3>
                     <div class="form-group">

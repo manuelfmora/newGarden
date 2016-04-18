@@ -167,12 +167,17 @@ class Login {
                    include_once CTRL_PATH.'error404.php';
            }
            else{
-               if(! isset($_POST['modificarusuario']))
+               if(! isset($_POST['modificarusuario'])){
                    $this->controller->Verfuera('Edita Operario',
                                         CargaVista('userEdit_O', array( )));
+               }
                else{
+                   
+                   $as=EscribeCampoUsuario($_GET['id'], 'clave');
+                   echo $as;
 
                    if($_POST['clave'] != EscribeCampoUsuario($_GET['id'], 'clave')){ //CLAVE INTRODUCIDA CORRECTA
+                       echo 'Entra en clave incorrecta.................';
                        $correcto = FALSE;
                        $errores['claveincorrecta'] = TRUE;
                    }
@@ -185,9 +190,11 @@ class Login {
                        $correcto = FALSE;
                    }
 
-                   if(!$correcto)
+                   if(!$correcto){
+                       echo 'Entra en errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr';
                         $this->controller->Verfuera('Edita Operario',
                                         CargaVista('userEdit_O', array('errores'=>$errores )));
+                   }
                    else {
                        $_SESSION['usuario'] = $_POST['usuario'];
 

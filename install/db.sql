@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-11-2015 a las 15:26:46
+-- Tiempo de generación: 18-04-2016 a las 17:49:39
 -- Versión del servidor: 5.6.26
 -- Versión de PHP: 5.6.12
 
@@ -17,8 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
-
-CREATE DATABASE practica;
+-- Base de datos: `practica`
 --
 
 -- --------------------------------------------------------
@@ -43,16 +42,15 @@ CREATE TABLE IF NOT EXISTS `tareas` (
   `fechar` date DEFAULT NULL,
   `anotacionesa` varchar(80) COLLATE utf8_spanish_ci DEFAULT NULL,
   `anotacionesp` varchar(80) COLLATE utf8_spanish_ci DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `tareas`
 --
 
 INSERT INTO `tareas` (`id`, `descripcion`, `nombre`, `telefono`, `correo`, `direccion`, `poblacion`, `codigo_postal`, `provincia`, `estado`, `fechac`, `operario`, `fechar`, `anotacionesa`, `anotacionesp`) VALUES
-(6, 'Nueva', 'Manuel Francisco Mora Martin', 959301156, 'mfm@g.dhfg', 'Avda. andalucia 85', 'Gibraleón', 21500, '01', 'Realizada', '0000-00-00', 'Pepe Francisco Mora martin', '2015-11-26', 'Nueva', 'Nueva'),
-(8, 'Provincias', 'Manuel Francisco Mora martin', 959301156, 'mfm@g.dhfg', 'Avda. andalucia 85', 'Lepe', 21500, ' >Guadalajara', 'Cancelada', '0000-00-00', 'Pepe Francisco Mora martin', '2015-11-19', 'muestra un símbolo raro', 'sdfdfa'),
-(9, 'insertar fecha', 'Manuel Francisco Mora martin', 959301156, 'mfm@g.dhfg', 'Avda. andalucia 85', 'Gibraleón', 21500, '20', 'Cancelada', '2015-11-27', 'pepepo Mora martin', '2015-11-29', 'aweqaqaqaf', 'dsafafs');
+(11, 'Tala de arboles', 'Antonio Martín Ramirez', 959314578, 'anmar@gmail.com', 'Calle Velázquez Nº 54', 'El Portil (Punta Umbria)', 21459, '21', 'Realizada', '2015-12-09', 'Antoni Gomez Perez', '2015-12-09', 'La tarea tiene que realizarse a partir de las doce', 'Cliente satisfecho.'),
+(12, 'Arreglo de aspesores', 'Antonia Mora Bebia', 959318956, 'anmo@gmial.com', 'Avda. Andalucía Nº15', 'Gibraleón', 21500, '21', 'Cancelada', '2015-12-09', 'Pepe Perez Gomez', '2015-12-09', '', '');
 
 --
 -- Disparadores `tareas`
@@ -133,6 +131,29 @@ INSERT INTO `tbl_provincias` (`cod`, `nombre`, `comunidad_id`) VALUES
 ('51', 'Ceuta', 18),
 ('52', 'Melilla', 19);
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id` int(11) NOT NULL,
+  `tipo` char(1) DEFAULT NULL,
+  `usuario` varchar(25) DEFAULT NULL,
+  `clave` varchar(60) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `tipo`, `usuario`, `clave`) VALUES
+(1, 'A', 'admin', 'admin'),
+(2, 'O', 'ope', 'ope'),
+(3, 'O', 'ope1', '1'),
+(4, 'O', 'ope2', '2');
+
 --
 -- Índices para tablas volcadas
 --
@@ -152,6 +173,12 @@ ALTER TABLE `tbl_provincias`
   ADD KEY `FK_ComunidadAutonomaProv` (`comunidad_id`);
 
 --
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -159,7 +186,12 @@ ALTER TABLE `tbl_provincias`
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
