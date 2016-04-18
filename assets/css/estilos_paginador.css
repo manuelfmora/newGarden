@@ -1,0 +1,155 @@
+/*Documento CSS generado para el paginador de lista de tareas*/
+/*PAGINADOR*/
+.paginador{
+	margin: 0px 15px 15px 15px;
+}
+
+/*BOTÓN INICIO-FIN*/
+.btn-inicio-fin { 
+  color: #FFFFFF; 
+  background-color: #2D3E50; 
+  border-color: #FFFFFF; 
+  height: 38px;
+  width: 60px;
+  margin: 5px 5px 5px 5px;
+} 
+ 
+.btn-inicio-fin:hover, 
+.btn-inicio-fin:focus, 
+.btn-inicio-fin:active, 
+.btn-inicio-fin.active, 
+.open .dropdown-toggle.btn-inicio-fin { 
+  color: #FFFFFF; 
+  background-color: #3C5269; 
+  border-color: #FFFFFF; 
+} 
+ 
+.btn-inicio-fin:active, 
+.btn-inicio-fin.active, 
+.open .dropdown-toggle.btn-inicio-fin { 
+  background-image: none; 
+} 
+ 
+.btn-inicio-fin.disabled, 
+.btn-inicio-fin[disabled], 
+fieldset[disabled] .btn-inicio-fin, 
+.btn-inicio-fin.disabled:hover, 
+.btn-inicio-fin[disabled]:hover, 
+fieldset[disabled] .btn-inicio-fin:hover, 
+.btn-inicio-fin.disabled:focus, 
+.btn-inicio-fin[disabled]:focus, 
+fieldset[disabled] .btn-inicio-fin:focus, 
+.btn-inicio-fin.disabled:active, 
+.btn-inicio-fin[disabled]:active, 
+fieldset[disabled] .btn-inicio-fin:active, 
+.btn-inicio-fin.disabled.active, 
+.btn-inicio-fin[disabled].active, 
+fieldset[disabled] .btn-inicio-fin.active { 
+  background-color: #2D3E50; 
+  border-color: #FFFFFF; 
+} 
+ 
+.btn-inicio-fin .badge { 
+  color: #2D3E50; 
+  background-color: #FFFFFF; 
+}
+
+/*BOTÓN ANTERIOR-SIGUIENTE*/
+.btn-anterior-siguiente { 
+  color: #FFFFFF; 
+  background-color: #18BD90; 
+  border-color: #FFFFFF; 
+  height: 38px;
+  width: 50px;
+  margin: 5px 5px 5px 5px;
+} 
+ 
+.btn-anterior-siguiente:hover, 
+.btn-anterior-siguiente:focus, 
+.btn-anterior-siguiente:active, 
+.btn-anterior-siguiente.active, 
+.open .dropdown-toggle.btn-anterior-siguiente { 
+  color: #FFFFFF; 
+  background-color: #14A881; 
+  border-color: #FFFFFF; 
+} 
+ 
+.btn-anterior-siguiente:active, 
+.btn-anterior-siguiente.active, 
+.open .dropdown-toggle.btn-anterior-siguiente { 
+  background-image: none; 
+} 
+ 
+.btn-anterior-siguiente.disabled, 
+.btn-anterior-siguiente[disabled], 
+fieldset[disabled] .btn-anterior-siguiente, 
+.btn-anterior-siguiente.disabled:hover, 
+.btn-anterior-siguiente[disabled]:hover, 
+fieldset[disabled] .btn-anterior-siguiente:hover, 
+.btn-anterior-siguiente.disabled:focus, 
+.btn-anterior-siguiente[disabled]:focus, 
+fieldset[disabled] .btn-anterior-siguiente:focus, 
+.btn-anterior-siguiente.disabled:active, 
+.btn-anterior-siguiente[disabled]:active, 
+fieldset[disabled] .btn-anterior-siguiente:active, 
+.btn-anterior-siguiente.disabled.active, 
+.btn-anterior-siguiente[disabled].active, 
+fieldset[disabled] .btn-anterior-siguiente.active { 
+  background-color: #18BD90; 
+  border-color: #FFFFFF; 
+} 
+ 
+.btn-anterior-siguiente .badge { 
+  color: #18BD90; 
+  background-color: #FFFFFF; 
+}
+
+/*BOTÓN NÚMEROS*/
+.btn-num-paginas { 
+  color: #18BD90; 
+  background-color: #FFFFFF; 
+  border-color: #18BD90; 
+  height: 38px;
+  width: 38px;
+  margin: 5px 5px 5px 5px;
+} 
+ 
+.btn-num-paginas:hover, 
+.btn-num-paginas:focus, 
+.btn-num-paginas:active, 
+.btn-num-paginas.active, 
+.open .dropdown-toggle.btn-num-paginas { 
+  color: #18BD90; 
+  background-color: #E8E8E8; 
+  border-color: #18BD90; 
+} 
+ 
+.btn-num-paginas:active, 
+.btn-num-paginas.active, 
+.open .dropdown-toggle.btn-num-paginas { 
+  background-image: none; 
+} 
+ 
+.btn-num-paginas.disabled, 
+.btn-num-paginas[disabled], 
+fieldset[disabled] .btn-num-paginas, 
+.btn-num-paginas.disabled:hover, 
+.btn-num-paginas[disabled]:hover, 
+fieldset[disabled] .btn-num-paginas:hover, 
+.btn-num-paginas.disabled:focus, 
+.btn-num-paginas[disabled]:focus, 
+fieldset[disabled] .btn-num-paginas:focus, 
+.btn-num-paginas.disabled:active, 
+.btn-num-paginas[disabled]:active, 
+fieldset[disabled] .btn-num-paginas:active, 
+.btn-num-paginas.disabled.active, 
+.btn-num-paginas[disabled].active, 
+fieldset[disabled] .btn-num-paginas.active { 
+  background-color: #FFFFFF; 
+  border-color: #18BD90; 
+} 
+ 
+.btn-num-paginas .badge { 
+  color: #FFFFFF; 
+  background-color: #18BD90; 
+}

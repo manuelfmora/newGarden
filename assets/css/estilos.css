@@ -1,0 +1,49 @@
+/*Documento CSS generado para elementos comunes de la aplicación*/
+/*btn enviar*/
+.btn-comun { 
+  color: #FFFFFF; 
+  background-color: #2C3E50; 
+  border-color: #fff; 
+} 
+ 
+.btn-comun:hover, 
+.btn-comun:focus, 
+.btn-comun:active, 
+.btn-comun.active, 
+.open .dropdown-toggle.btn-comun { 
+  color: #FFFFFF; 
+  background-color: #384F66; 
+  border-color: #fff; 
+} 
+ 
+.btn-comun:active, 
+.btn-comun.active, 
+.open .dropdown-toggle.btn-comun { 
+  background-image: none; 
+} 
+ 
+.btn-comun.disabled, 
+.btn-comun[disabled], 
+fieldset[disabled] .btn-comun, 
+.btn-comun.disabled:hover, 
+.btn-comun[disabled]:hover, 
+fieldset[disabled] .btn-comun:hover, 
+.btn-comun.disabled:focus, 
+.btn-comun[disabled]:focus, 
+fieldset[disabled] .btn-comun:focus, 
+.btn-comun.disabled:active, 
+.btn-comun[disabled]:active, 
+fieldset[disabled] .btn-comun:active, 
+.btn-comun.disabled.active, 
+.btn-comun[disabled].active, 
+fieldset[disabled] .btn-comun.active { 
+  background-color: #2C3E50; 
+  border-color: #2C3E50; 
+} 
+ 
+.btn-comun .badge { 
+  color: #fff; 
+  background-color: #FFFFFF; 
+}
+
+
