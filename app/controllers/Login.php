@@ -47,7 +47,7 @@ class Login {
     * Muestra la pantalla para logearse
     */
     public function login(){
-
+        echo 'Entra en LOGIN';
        if (!EMPTY($_POST['usuario']) && !EMPTY($_POST['clave'])){
 
            $loginok=$this->CreaLogin();

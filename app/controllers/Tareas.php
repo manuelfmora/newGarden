@@ -2,7 +2,7 @@
 include (LIB_PATH.'GestorErrores.php');
 include (HELPERS_PATH.'form.php');
 include (CTRL_PATH.'setup.php');
-//include (CTRL_PATH.'login.php');
+
 include (MODEL_PATH.'TareasModel.php');
 //include (MODEL_PATH.'LoginModel.php');
 
@@ -16,11 +16,10 @@ class Tareas {
     protected $model=NULL;
     protected $errores=NULL;
     protected $controller=NULL;
-    protected $loginmodel=NULL;
+    protected $controllerlogin=NULL;
 
     public function __construct() {        
-        $this->model=new Tareas_Model();
-//        $this->loginmodel=new LoginModel();
+        $this->model=new Tareas_Model();       
         // El gestor solo sería necesario crearlo si editamos o insertamos
         // Inicializamos el gestor de errores que utilizaremos en la vista
         $this->errores=new GestorErrores(
@@ -66,12 +65,20 @@ class Tareas {
      * Muestra la lista de tareas
      */
     public function Listar()
-    {        
-        $array = $this->model->GetTareas();
-        $pags = $this->model->NumPag();
-        $this->Ver('Listado de tareas',
-                CargaVista('VistaListar', array(
-                    'list'=>$array, 'pags'=>$pags)));
+    { 
+        if (!isset($_SESSION['loginok'])) {
+            //Si no esta logeado cargamos la vista de login.
+            include (CTRL_PATH.'login.php');
+            $this->controllerlogin=new Login();
+            $this->controllerlogin->login();
+            
+        } else {
+            $array = $this->model->GetTareas();
+            $pags = $this->model->NumPag();
+            $this->Ver('Listado de tareas',
+                    CargaVista('VistaListar', array(
+                        'list'=>$array, 'pags'=>$pags)));
+        }
     }
     
      /**
@@ -331,63 +338,81 @@ class Tareas {
         return NULL;
       }
     }
-    
+    /**
+     * Funcion que permite hacer una busqueda por los diferentes campos.
+     */
     public function Buscar() {
+        
+    
+        if (!isset($_SESSION['loginok'])) {
+            //Si no esta logeado cargamos la vista de login.
+            include (CTRL_PATH.'login.php');
+            $this->controllerlogin=new Login();
+            $this->controllerlogin->login();
+            
+        } else {
+    
+            if (!isset($_SESSION['loginok'])) {
+                //Si no esta logeado cargamos la vista de login.
+                $this->controllerlogin=new Login();
+                $this->controllerlogin->login();
 
-      if (isset($_POST["sr"])) {
+            } else {
 
-              if (empty($_POST["description"]) && empty($_POST["c_date"]) && empty($_POST["status"])) {
+                if (isset($_POST["sr"])) {
 
-                      echo "No has buscado por ningún campo";
+                      if (empty($_POST["description"]) && empty($_POST["c_date"]) && empty($_POST["status"])) {
 
-              } else {
+                              echo "No has buscado por ningún campo";
 
-          $query = "SELECT * FROM tareas WHERE ";
-                      $num = 0;
+                      } else {
 
-                      if (!empty($_POST["c_date"])) {
-                          $c_date= $_POST["c_date"];
-                              //$c_date = formatDate($_POST["c_date"]);
-                              $operator = $_POST["operator"];
-                              if ($num != 0) {
-                                      $query .= " and ";
+                  $query = "SELECT * FROM tareas WHERE ";
+                              $num = 0;
+
+                              if (!empty($_POST["c_date"])) {
+                                  $c_date= $_POST["c_date"];
+                                      //$c_date = formatDate($_POST["c_date"]);
+                                      $operator = $_POST["operator"];
+                                      if ($num != 0) {
+                                              $query .= " and ";
+                                      }
+                                      $query .= "fechac $operator '$c_date'";
+                                      $num++;
                               }
-                              $query .= "fechac $operator '$c_date'";
-                              $num++;
+
+                  if (!empty($_POST["status"])) {
+                    $status = $_POST["status"];
+                    if ($num != 0) {
+                      $query .= " and ";
+                    }
+                    $query .= "estado = '$status'";
+                    $num++;
+                  }
+
+                  if (!empty($_POST["description"])) {
+                    $description = $_POST["description"];
+                    if ($num != 0) {
+                      $query .= " and ";
+                    }
+                    $query .= "descripcion LIKE '%$description%'";
+                    $num++;
+                  }
+
+                              $array = $this->model->TaskList(null,$query);
+
+                        $this->Ver('Resultados tareas', CargaVista('VistaListar', array(
+                            'list'=>$array)));
+
                       }
 
-          if (!empty($_POST["status"])) {
-            $status = $_POST["status"];
-            if ($num != 0) {
-              $query .= " and ";
+            } else {
+              $this->Ver('Buscar', CargaVista('buscar'));
             }
-            $query .= "estado = '$status'";
-            $num++;
-          }
-
-          if (!empty($_POST["description"])) {
-            $description = $_POST["description"];
-            if ($num != 0) {
-              $query .= " and ";
-            }
-            $query .= "descripcion LIKE '%$description%'";
-            $num++;
-          }
-
-                      $array = $this->model->TaskList(null,$query);
-
-                $this->Ver('Resultados tareas', CargaVista('VistaListar', array(
-                    'list'=>$array)));
-
-              }
-
-      } else {
-        $this->Ver('Buscar', CargaVista('buscar'));
-      }
+        }
     }
-    
-    
-
-
+      
+      
+    }//Fin buscar
     
 }
