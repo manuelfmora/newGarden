@@ -47,20 +47,25 @@ class Login {
     * Muestra la pantalla para logearse
     */
     public function login(){
-        echo 'Entra en LOGIN';
+        
        if (!EMPTY($_POST['usuario']) && !EMPTY($_POST['clave'])){
 
            $loginok=$this->CreaLogin();
 
            if($loginok==FALSE ){
-               echo 'ENTRA EN SESSION_LOGIN FALSE...................<BR>';
+              
               $this->controller->Verfuera('Login',
                    CargaVista('login', array( 'loginok'=>$loginok )));
 
            }  
        }
-       $this->controller->Verfuera('Login',
-                   CargaVista('login', array()));
+        else {            
+            
+            $this->controller->Verfuera('Login',
+                        CargaVista('login', array()));
+
+        }
+    
     }
     
     /**

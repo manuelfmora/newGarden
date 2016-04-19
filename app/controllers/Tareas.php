@@ -350,14 +350,7 @@ class Tareas {
             $this->controllerlogin=new Login();
             $this->controllerlogin->login();
             
-        } else {
-    
-            if (!isset($_SESSION['loginok'])) {
-                //Si no esta logeado cargamos la vista de login.
-                $this->controllerlogin=new Login();
-                $this->controllerlogin->login();
-
-            } else {
+        } else {           
 
                 if (isset($_POST["sr"])) {
 
@@ -409,7 +402,7 @@ class Tareas {
             } else {
               $this->Ver('Buscar', CargaVista('buscar'));
             }
-        }
+        
     }
       
       
