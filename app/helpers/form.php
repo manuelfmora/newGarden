@@ -153,8 +153,8 @@ function Valorpostedit($array,$id,$campo)
     if(isset($array[$id][$campo]))
     {
         if($campo=='fechar'){
-            
-            $dateRealizacion = new Datetime($array[$id][$campo]);
+         
+            $dateRealizacion = new Datetime($array[$id][$campo]);               
             $date= date_format($dateRealizacion, 'd-m-Y');
             echo $date;
             
