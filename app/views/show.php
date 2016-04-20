@@ -36,7 +36,7 @@
     </td>
   </tr>
   <tr>
-    <td><?="Provincia: ".$show[$id]['provincia']?>
+    <td><?="Provincia: ".$provincias?>
     </td>
   </tr>
   <tr>
@@ -44,7 +44,7 @@
     </td>
   </tr>
   <tr>
-    <td><?="Fecha de creación: ".$show[$id]['fechac']?>
+    <td><?="Fecha de creación: ".$fechac?>
     </td>
   </tr>
   <tr>
@@ -52,7 +52,7 @@
     </td>
   </tr>
   <tr>
-    <td><?="Fecha de realización: ".$show[$id]['fechar']?>
+    <td><?="Fecha de realización: ".$fechar?>
     </td>
   </tr>
   <tr>

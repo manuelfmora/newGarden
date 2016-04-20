@@ -183,17 +183,40 @@ class Tareas {
         }
     }
     
-     /**
+    public function getProvincia($prov){
+                    
+      return $this->model->GetNombreProvincias($prov);
+        
+    }
+    public function getFechac($fec){
+       
+                      $date = new DateTime($fec);
+                     return date_format($date, 'd-m-Y') ;  
+        
+        
+    }
+    
+     public function getFechar($fec){
+      
+                      $date = new DateTime($fec);
+                     return date_format($date, 'd-m-Y') ;  
+       
+        
+     }
+
+        /**
     * Función que muestra los datos de una tarea. Carga la vista "show".
     */   
     public function Show()
     {
-      $provincias = $this->model->listaProvinciasParaSelect();
-      $array = $this->model->GetTareas($_GET['id']);
-      $this->Ver('Muestra tarea',  CargaVista('show', array(
-          'provincias'=>$provincias,
-          'show'=>$array, 
-          'id'=>$_GET['id'])));
+        $id=$_GET['id'];
+        $array = $this->model->GetTareas($id);
+        $this->Ver('Muestra tarea',  CargaVista('show', array(
+            'provincias'=>  $this->getProvincia($array[$id]['provincia']),
+            'fechac'=>  $this->getFechac($array[$id]['fechac']),
+            'fechar'=>  $this->getFechar($array[$id]['fechar']),
+            'show'=>$array, 
+            'id'=>$_GET['id'])));
       
     }
       /**
