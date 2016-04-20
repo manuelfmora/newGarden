@@ -2,9 +2,8 @@
 include (LIB_PATH.'GestorErrores.php');
 include (HELPERS_PATH.'form.php');
 include (CTRL_PATH.'setup.php');
-
 include (MODEL_PATH.'TareasModel.php');
-//include (MODEL_PATH.'LoginModel.php');
+
 
 /**
  * Description of Tareas
@@ -37,18 +36,18 @@ class Tareas {
     public function Inicio()
     {
         if (!file_exists('config.php')) { //Si no existe el fichero de configuración, accede al instalador
-            echo 'Entra No existe CONFIG.PHP<br>';
+            
             if(!$_POST){
-                echo 'Entra en NO HAY INSTALADOR<br>';
+               
                 $this->Ver('Intalador', CargaVista('setup'));
             }
             else {
                 
-                echo 'Entra CREAACIÓN DEL INSTALADOR.............<br>';
+               
                 $this->controller=new Setup();
                 $this->controller->CreaFichero();
                 if (file_exists('config.php')){
-                    echo 'Entra HAY INSTALADOR Y MOSTRAMO PAGINA DE INICIO.............<br>'; 
+                    
                     
                     $this->Ver('Página de inicio', CargaVista('inicio'));
                 }
@@ -103,7 +102,7 @@ class Tareas {
       }
      }
     /**
-    * Función que permite añadir una nueva tarea. Carga la vista "addtask". Tiene en cuenta si hay errores antes de realizar dicha carga.
+    * Función que permite añadir una nueva tarea. 
     */
     public function Add()
     {
@@ -190,17 +189,15 @@ class Tareas {
     }
     public function getFechac($fec){
        
-                      $date = new DateTime($fec);
-                     return date_format($date, 'd-m-Y') ;  
-        
+        $date = new DateTime($fec);
+       return date_format($date, 'd-m-Y') ;         
         
     }
     
      public function getFechar($fec){
       
-                      $date = new DateTime($fec);
-                     return date_format($date, 'd-m-Y') ;  
-       
+       $date = new DateTime($fec);
+       return date_format($date, 'd-m-Y') ;  
         
      }
 
@@ -261,7 +258,10 @@ class Tareas {
     * @return devuelve un array con todos los campos del formulario indexados.
     */
     private function getForm()
-    {            
+    { 
+      
+      if (isset($_POST['fechar']))$dateR = new Datetime($_POST['fechar']);
+      if (isset($_POST['fechac']))$dateC = new Datetime($_POST['fechac']);
       if (isset($_POST['descripcion']))$field['descripcion'] = $_POST['descripcion'];
       if (isset($_POST['nombre']))$field['nombre'] = $_POST['nombre'];    
       if (isset($_POST['telefono']))$field['telefono'] = $_POST['telefono'];
@@ -271,9 +271,9 @@ class Tareas {
       if (isset($_POST['codigo_postal'])){$field['codigo_postal'] = $_POST['codigo_postal'];}
       if (isset($_POST['provincia']))$field['provincia'] = $_POST['provincia'];
       if (isset($_POST['estado'])){$field['estado'] = $_POST['estado'];}
-      if (isset($_POST['fechac']))$field['fechac'] = $_POST['fechac'];
+      if (isset($_POST['fechac']))$field['fechac'] =  date_format($dateC, 'Y-m-d');
       if (isset($_POST['operario']))$field['operario'] = $_POST['operario'];
-      if (isset($_POST['fechar']))$field['fechar'] = $_POST['fechar'];
+      if (isset($_POST['fechar']))$field['fechar'] =  date_format($dateR, 'Y-m-d');
       if (isset($_POST['anotacionesa'])){$field['anotacionesa'] = $_POST['anotacionesa'];}
       if (isset($_POST['anotacionesp'])){$field['anotacionesp'] = $_POST['anotacionesp'];}
 

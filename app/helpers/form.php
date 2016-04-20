@@ -148,16 +148,39 @@ function actualPag()
 * @param $campo campo a validar.
 */
 function Valorpostedit($array,$id,$campo)
-{
-//    print_r($array);
-//    print_r($id);
-//    print_r($campo);
-  if(isset($array[$id][$campo]))
-  {
-    echo $array[$id][$campo];
-  }
-  else
-  {
-    Valorpost($campo);
-  }
+{ 
+    
+    if(isset($array[$id][$campo]))
+    {
+        if($campo=='fechar'){
+            
+            $dateRealizacion = new Datetime($array[$id][$campo]);
+            $date= date_format($dateRealizacion, 'd-m-Y');
+            echo $date;
+            
+        }  else {
+            echo $array[$id][$campo];
+        }      
+    }
+    else
+    {
+      Valorpost($campo);
+    }
 }
+
+/**
+ * Carga los datos guardados en cada input del formulario de modificar
+ * @param String $id ID de la tarea
+ * @param String $name Nombre del campo
+ * @return String Dato del campo
+ */
+//function CargaDatos($id, $name) {
+//
+//    $tarea = GetUnaTarea($id);
+//
+//    if ($name == 'fecha_realizacion') {
+//        $dateRealizacion = new Datetime($tarea[0][$name]);
+//        return date_format($dateRealizacion, 'd-m-Y');
+//    } else
+//        return $tarea[0][$name];
+//}
