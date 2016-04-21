@@ -100,7 +100,7 @@ class Tareas {
              $this->Ver('Modificar tarea', CargaVista('edit', array(
             'provincias'=>$provincias,
             'errores'=>$errores,
-            'edit'=>$form,//Agregamos el formulario sin pasar por la BD. 
+            'edit'=>$array,//Agregamos el formulario sin pasar por la BD. 
             'id'=>$_GET['id'])));
              
     
@@ -497,11 +497,11 @@ class Tareas {
        $array_fecha = explode("-", $fecha);
 
        if (count($array_fecha) != 3){
-           echo 'ENtra en el distinto de tres';
+          
            return FALSE;
        }
-
        else {
+           error_reporting(E_ERROR);
            $dia = $array_fecha[$DIA];
            $mes = $array_fecha[$MES];
            $year = $array_fecha[$YEAR];
