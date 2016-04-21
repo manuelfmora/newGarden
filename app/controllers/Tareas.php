@@ -100,7 +100,7 @@ class Tareas {
              $this->Ver('Modificar tarea', CargaVista('edit', array(
             'provincias'=>$provincias,
             'errores'=>$errores,
-            'edit'=>$array,//Agregamos el formulario sin pasar por la BD. 
+            'edit'=>$array,
             'id'=>$_GET['id'])));
              
     
@@ -143,6 +143,7 @@ class Tareas {
         }
         else
         {
+          $form = $this->getFormok();
           $this->model->AddTareas($form);
           $this->Inicio();
         }
@@ -342,9 +343,7 @@ class Tareas {
         $errores[] = "El campo 'Operario encargado' debe estar relleno.";
         $error = true;
       }
-      $a=$this->FechaCorrecta($array['fechar']);
-
-      print_r($a);
+   
       if(!isset($array['fechar']) || $array['fechar'] == "")
       {
         $errores[] = "El campo 'Fecha de realización' debe estar relleno.";

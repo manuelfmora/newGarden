@@ -36,7 +36,7 @@
         <label class="col-sm-2 control-label">Fecha de realización</label>
         <div class="col-sm-10">
           <input type="hidden" name="estado" value="Pendiente"><!--Introducimos en Estado como Pendiente -->
-          <input type="text" class="form-control" name="fechac" value="<?php ValorPost('fechac')?>">
+          <input type="text" class="form-control" name="fechar" value="<?php ValorPost('fechar')?>">
         </div>
       </div>
       <div class="form-group">
