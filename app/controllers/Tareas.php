@@ -3,6 +3,7 @@ include (LIB_PATH.'GestorErrores.php');
 include (HELPERS_PATH.'form.php');
 include (CTRL_PATH.'setup.php');
 include (MODEL_PATH.'TareasModel.php');
+include (HELPERS_PATH.'paginacion.php');
 
 
 /**
@@ -16,9 +17,11 @@ class Tareas {
     protected $errores=NULL;
     protected $controller=NULL;
     protected $controllerlogin=NULL;
+    protected $paginacion=NULL;
 
     public function __construct() {        
-        $this->model=new Tareas_Model();       
+        $this->model=new Tareas_Model(); 
+//        $this->paginacion=new Paginacion();
         // El gestor solo sería necesario crearlo si editamos o insertamos
         // Inicializamos el gestor de errores que utilizaremos en la vista
         $this->errores=new GestorErrores(
@@ -63,23 +66,60 @@ class Tareas {
     /**
      * Muestra la lista de tareas
      */
+    /**
+ * CONTROLADOR de listar tareas
+ */
     public function Listar()
     { 
         if (!isset($_SESSION['loginok'])) {
-            //Si no esta logeado cargamos la vista de login.
+           //Si no esta logeado cargamos la vista de login.
             include (CTRL_PATH.'login.php');
             $this->controllerlogin=new Login();
             $this->controllerlogin->login();
+        } else { 
             
-        } else {
-            $array = $this->model->GetTareas();
-            $pags = $this->model->NumPag();
-            $this->Ver('Listado de tareas',
+//           include (HELPERS_PATH.'paginacion.php');
+            //PAGINACIÓN
+            // Ruta URL desde la que ejecutamos el script
+            $myURL = '?c=Tareas&a=Listar&'; //Con contralador frontal
+
+            $nElementosxPagina = 2;
+
+            // Calculamos el número de página que mostraremos
+            print_r($_GET['pag']);
+            if (isset($_GET['pag'])) {
+                // Leemos de GET el número de página
+                $nPag = $_GET['pag'];
+            } else {
+                // Mostramos la primera página
+                $nPag = 1;
+            }
+            print_r('Numero de paginas'.$nPag);
+            // Calculamos el registro por el que se empieza en la sentencia LIMIT
+            $nReg = ($nPag - 1) * $nElementosxPagina;
+            print_r('Numero de registros....'.$nReg);
+//            $tareas = array();
+            $tareas =$this->model->GetTareasList($nReg, $nElementosxPagina);
+//            print_r($tareas);
+            $totalRegistros =$this->model-> GetNumRegistrosTareas();
+
+            $totalPaginas = $totalRegistros / $nElementosxPagina;
+
+            if (is_float($totalPaginas)) {
+                $totalPaginas = intval($totalPaginas);
+                $totalPaginas++;
+            }
+//            $paginacion=$this->paginacion->MuestraPaginador($nPag, $totalPaginas, $myURL);
+            //Muestra Vista lista
+             $this->Ver('Listado de tareas',
                     CargaVista('VistaListar', array(
-                        'list'=>$array, 'pags'=>$pags)));
+                        'nPag'=>$nPag,
+                        'list'=>$tareas,
+                        'myURL'=>$myURL,
+                        'totalPaginas'=>$totalPaginas)));
         }
+
     }
-    
      /**
     * Función que permite editar una tarea. Carga la vista "edit". Tiene en cuenta errores y si se modifica.
     */
@@ -89,8 +129,7 @@ class Tareas {
       if (isset($_GET['u']))
       {
         $form = $this->getForm();
-//        $this->model->UpdateTask($_GET['id'], $form);
-//        $this->Listar();        
+        
         $errores = $this->getErrores($form);
 
         if($errores != NULL)
@@ -107,7 +146,7 @@ class Tareas {
         }
         else
         {
-            echo 'ENTRA EN GUARDAR';
+            
             $form = $this->getFormok();
             $this->model->UpdateTask($_GET['id'], $form);
             $this->Listar();
@@ -115,7 +154,7 @@ class Tareas {
       }
       else
       {
-          echo 'ENTRA EN LA PRIMERA EDICIÓN';
+        
         $array = $this->model->GetTareas($_GET['id']);
         $this->Ver('Modificar tarea', CargaVista('edit', array(
             'provincias'=>$provincias,

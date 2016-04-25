@@ -5,7 +5,8 @@ Class Db{
 
  	private $link;	
         private $result;
-	private $array;
+        private $regActual;
+        private $array;
         protected $conecDB=NULL;
 
         static $_instance;
@@ -86,16 +87,31 @@ Class Db{
 		return mysqli_insert_id($this->link);
 	}
         
-        /**
-        * Se encarga de realizar un array asociativo del resultado de una consulta.
-        * @param $result resultado de una consulta.
-        * @return array asociativo
+//        /**
+//        * Se encarga de realizar un array asociativo del resultado de una consulta.
+//        * @param $result resultado de una consulta.
+//        * @return array asociativo
+//        */
+//        public function ReadReg($result)
+//        {
+//                return $result->fetch_assoc();
+//        }
+          /**
+        * Devuelve el siguiente registro del result set devuelto por una consulta.     * 
+        * @param mixed $result
+        * @return array | NULL
         */
-        public function ReadReg($result)
-        {
-                return $result->fetch_assoc();
-        }
-        
+       public function ReadReg($result = NULL) {
+           if (!$result) {
+               if (!$this->result) {
+                   return NULL;
+               }
+               $result = $this->result;
+           }
+           $this->regActual = $result->fetch_assoc(); 
+           return $this->regActual;
+       }
+
         /**
         * Actualiza la base de datos.
         * @param $table tabla que se actualiza.

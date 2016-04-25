@@ -64,6 +64,8 @@
     </td>
   </tr>
 </table>
-    <a href="?c=Tareas&a=Listar"><button class="btn btn-primary right botonwidth">Volver</button></a>
-    
+    <center>
+     <a href="?c=Tareas&a=Listar" class="btn btn-info"><-<- Volver</a>
+    </center>
+    <br>
 </div>

@@ -16,6 +16,31 @@ class Tareas_Model
     {       	
             $this->db=Db::getInstance();//conexion  base de datos	
     }
+    
+    /**
+ * Función que devuelve un array con los datos de tareas
+ * @param Int $nReg Número de registro
+ * @param Int $nElementosxPagina Número de elementos a mostrar por página
+ * @return Array Tareas y sus datos
+ */
+function GetTareasList($nReg, $nElementosxPagina) {
+    /* Creamos la instancia del objeto. Ya estamos conectados */
+   
+
+    $sql = 'SELECT  * FROM `tareas`  LIMIT ' . $nReg . ', ' . $nElementosxPagina;
+
+    /* Ejecutamos la query */
+    $query = $this->db->query($sql);
+    // Creamos el array donde se guardarán las provincias
+    $tareas = Array();
+
+    /* Realizamos un bucle para ir obteniendo los resultados */
+    while ($line = $this->db->readReg($query)) {
+        $tareas[] = $line;
+    }
+    return $tareas;
+}
+
      /**
     * Lista de las tareas paginadas.
     * @param $id id de la tarea si se desea sacar solo una.
@@ -56,6 +81,25 @@ class Tareas_Model
       return $array;
       }
     }
+    /**
+    * Función que devuelve el número de tareas guardadas en la Base de Datos
+    * @return Int Número de tareas guardadas
+    */
+    public function GetNumRegistrosTareas() {
+       
+       /* Creamos una query sencilla */
+       $sql = 'SELECT  count(*) as numRegistros FROM `tareas`';
+
+       /* Ejecutamos la query */
+        $query = $this->db->query($sql);
+
+       /* Realizamos un bucle para ir obteniendo los resultados */
+//       $line = $bd->LeeRegistro();
+        $line =  $this->db->ReadReg();
+
+       return $line['numRegistros'];
+    }
+
       /**
     * Función que saca el número de páginas.
     * @return número de páginas.
