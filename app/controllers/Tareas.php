@@ -20,9 +20,7 @@ class Tareas {
     protected $paginacion=NULL;
 
     public function __construct() {        
-        $this->model=new Tareas_Model(); 
-//        $this->paginacion=new Paginacion();
-        // El gestor solo sería necesario crearlo si editamos o insertamos
+        $this->model=new Tareas_Model();      
         // Inicializamos el gestor de errores que utilizaremos en la vista
         $this->errores=new GestorErrores(
                 '<span style="color:red; background:#EEE; padding:.2em 1em; margin:1em">', '</span>');
@@ -85,8 +83,7 @@ class Tareas {
 
             $nElementosxPagina = 2;
 
-            // Calculamos el número de página que mostraremos
-            print_r($_GET['pag']);
+            // Calculamos el número de página que mostraremos            
             if (isset($_GET['pag'])) {
                 // Leemos de GET el número de página
                 $nPag = $_GET['pag'];
@@ -94,13 +91,12 @@ class Tareas {
                 // Mostramos la primera página
                 $nPag = 1;
             }
-            print_r('Numero de paginas'.$nPag);
+        
             // Calculamos el registro por el que se empieza en la sentencia LIMIT
-            $nReg = ($nPag - 1) * $nElementosxPagina;
-            print_r('Numero de registros....'.$nReg);
-//            $tareas = array();
+            $nReg = ($nPag - 1) * $nElementosxPagina;            
+
             $tareas =$this->model->GetTareasList($nReg, $nElementosxPagina);
-//            print_r($tareas);
+
             $totalRegistros =$this->model-> GetNumRegistrosTareas();
 
             $totalPaginas = $totalRegistros / $nElementosxPagina;
@@ -109,7 +105,7 @@ class Tareas {
                 $totalPaginas = intval($totalPaginas);
                 $totalPaginas++;
             }
-//            $paginacion=$this->paginacion->MuestraPaginador($nPag, $totalPaginas, $myURL);
+
             //Muestra Vista lista
              $this->Ver('Listado de tareas',
                     CargaVista('VistaListar', array(
@@ -603,9 +599,44 @@ class Tareas {
                   }
 
                               $array = $this->model->TaskList(null,$query);
+                              
 
-                        $this->Ver('Resultados tareas', CargaVista('VistaListar', array(
-                            'list'=>$array)));
+                         //PAGINACIÓN
+            // Ruta URL desde la que ejecutamos el script
+            $myURL = '?c=Tareas&a=Listar&'; //Con contralador frontal
+
+            $nElementosxPagina = 2;
+
+            // Calculamos el número de página que mostraremos            
+            if (isset($_GET['pag'])) {
+                // Leemos de GET el número de página
+                $nPag = $_GET['pag'];
+            } else {
+                // Mostramos la primera página
+                $nPag = 1;
+            }
+        
+            // Calculamos el registro por el que se empieza en la sentencia LIMIT
+            $nReg = ($nPag - 1) * $nElementosxPagina;            
+
+            $tareas =$this->model->GetTareasList($nReg, $nElementosxPagina);
+
+            $totalRegistros =$this->model-> GetNumRegistrosTareas();
+
+            $totalPaginas = $totalRegistros / $nElementosxPagina;
+
+            if (is_float($totalPaginas)) {
+                $totalPaginas = intval($totalPaginas);
+                $totalPaginas++;
+            }
+
+            //Muestra Vista lista
+             $this->Ver('Listado de tareas',
+                    CargaVista('VistaListar', array(
+                        'nPag'=>$nPag,
+                        'list'=>$tareas,
+                        'myURL'=>$myURL,
+                        'totalPaginas'=>$totalPaginas)));
 
                       }
 

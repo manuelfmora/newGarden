@@ -8,6 +8,16 @@
 <div class="container">
 
 <form method="post">
+     <div class="container">
+    <?php if(isset($errores))
+    {
+      echo "<div class='alert alert-danger'>";
+      foreach ($errores as $value)
+      {
+        echo "<li>".$value.'</li>';
+      }
+      echo "</div>";
+    } ?>
 
   <div class="form-group">
     <label class="col-sm-2 control-label">Fecha de creación</label>
@@ -43,9 +53,9 @@
       </label>
     </div>
   </div>
-  <div class="container centrado">
-    <input type="submit" class="btn btn-default btn-lg" type="button" name="sr" value="Buscar">
-  </div>
+    <center>
+    <input type="submit" class="btn btn-info " type="button" name="sr" value="Buscar">
+    </center>
   </form>
 
 </div>
