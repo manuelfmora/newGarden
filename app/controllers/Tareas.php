@@ -18,6 +18,7 @@ class Tareas {
     protected $controller=NULL;
     protected $controllerlogin=NULL;
     protected $paginacion=NULL;
+    protected $buscar=NULL;
 
     public function __construct() {        
         $this->model=new Tareas_Model();      
@@ -390,6 +391,17 @@ class Tareas {
           $error = true;
         }
       }
+       if(!isset($array['fechac']) || $array['fechac'] == "")
+      {
+        $errores[] = "El campo 'Fecha de realización' debe estar relleno.";
+        $error = true;
+      } else {
+        if (!$this->FormatoFechaCorrecto($array['fechac']))
+        {
+          $errores['formato'] = "'Formato de fecha de creación incorrecta'";
+          $error = true;
+        }
+      }
 
       if(!isset($array['nombre']) || $array['nombre'] == "")
       {
@@ -558,95 +570,142 @@ class Tareas {
             
         } else {           
 
-                if (isset($_POST["sr"])) {
+              
+        include_once HELPERS_PATH.'buscar.php';
 
-                      if (empty($_POST["description"]) && empty($_POST["c_date"]) && empty($_POST["status"])) {
-
-                              echo "No has buscado por ningún campo";
-
-                      } else {
-
-                  $query = "SELECT * FROM tareas WHERE ";
-                              $num = 0;
-
-                              if (!empty($_POST["c_date"])) {
-                                  $c_date= $_POST["c_date"];
-                                      //$c_date = formatDate($_POST["c_date"]);
-                                      $operator = $_POST["operator"];
-                                      if ($num != 0) {
-                                              $query .= " and ";
-                                      }
-                                      $query .= "fechac $operator '$c_date'";
-                                      $num++;
-                              }
-
-                  if (!empty($_POST["status"])) {
-                    $status = $_POST["status"];
-                    if ($num != 0) {
-                      $query .= " and ";
-                    }
-                    $query .= "estado = '$status'";
-                    $num++;
-                  }
-
-                  if (!empty($_POST["description"])) {
-                    $description = $_POST["description"];
-                    if ($num != 0) {
-                      $query .= " and ";
-                    }
-                    $query .= "descripcion LIKE '%$description%'";
-                    $num++;
-                  }
-
-                              $array = $this->model->TaskList(null,$query);
-                              
-
-                         //PAGINACIÓN
-            // Ruta URL desde la que ejecutamos el script
-            $myURL = '?c=Tareas&a=Listar&'; //Con contralador frontal
-
-            $nElementosxPagina = 2;
-
-            // Calculamos el número de página que mostraremos            
-            if (isset($_GET['pag'])) {
-                // Leemos de GET el número de página
-                $nPag = $_GET['pag'];
-            } else {
-                // Mostramos la primera página
-                $nPag = 1;
-            }
+        //Cargamos las provincias desde la bd para poder crear select en la vista
         
-            // Calculamos el registro por el que se empieza en la sentencia LIMIT
-            $nReg = ($nPag - 1) * $nElementosxPagina;            
+        $Provincias =  $this->model->GetProvincias();
 
-            $tareas =$this->model->GetTareasList($nReg, $nElementosxPagina);
+        $opcionesfecha = Array(
+                                'mayor' => '>',
+                                'mayorigual' => '>=',
+                                'menor' => '<',
+                                'menorigual' => '<=',
+                                'igual' => '=');
 
-            $totalRegistros =$this->model-> GetNumRegistrosTareas();
+        //Cargamos modelo de a consulta de busqueda
+//        include_once MODEL_PATH.'buscar.php';
 
-            $totalPaginas = $totalRegistros / $nElementosxPagina;
+        $errores = Array();
+        $correcto = TRUE;
 
-            if (is_float($totalPaginas)) {
-                $totalPaginas = intval($totalPaginas);
-                $totalPaginas++;
+        if(! $_POST){
+             
+         $this->Ver('Buscar', CargaVista('buscar', array(
+                    'provincias'=>$Provincias,                 
+                    'opcionesfecha'=>$opcionesfecha,
+                   )));
+        }
+        else{
+           
+                if( !EMPTY($_POST['fechac']) && ! FormatoFechaCorrecto($_POST['fechac'])){ //Comprobamos su formato
+                $errores['fecha_creacion'] = 'Formato de fecha de creación incorrecta';
+                $correcto = FALSE;
+                }	
+
+                if( !EMPTY($_POST['fechar']) && !$this-> FormatoFechaCorrecto($_POST['fechar'])){ //Comprobamos su formato 
+                    $errores['fecha_realizacion'] = 'Formato de fecha de realización incorrecta';
+                    $correcto = FALSE;
+                }
+
+                if (!EMPTY($_POST['telefono']) && ! is_numeric($_POST['telefono'])){
+                    $errores['telefono'] = 'El teléfono debe ser númerico';
+                    $correcto = FALSE;
+                }
+
+            if(! $correcto){
+//                include_once VIEW_PATH.'buscar.php';             
+                  
+             $this->Ver('Buscar', CargaVista('buscar', array(
+                    'provincias'=>$Provincias,                 
+                    'opcionesfecha'=>$opcionesfecha,
+                    'errores'=>$errores,
+                   )));
             }
 
-            //Muestra Vista lista
-             $this->Ver('Listado de tareas',
+            else{
+          
+                  $this->buscar=new Buscando();
+                  
+                $condicion = $this->buscar->CreaCondicionConsulta();
+                echo "<pre>$condicion</pre>";
+                if (! EMPTY($condicion)){ //Si se ha introducido algún campo de condición
+//                    include_once VIEW_PATH.'buscar.php';
+//                    include_once CTRL_PATH.'paginacion_buscar.php';
+//                    $this->Ver('Buscar', CargaVista('buscar'));
+                    $this->paginacionBuscar($condicion);
+                    
+                }
+                else{
+                    include_once VIEW_PATH.'algunacondicion.php';
+                    $this->Ver('Buscar', CargaVista('buscar'));
+                    
+                }
+            }
+        }
+        
+    }
+      
+      
+    }//Fin buscar
+    
+    public function paginacionBuscar($condicion){
+             
+        if($_POST)//Primera vez
+             $_SESSION['post'] = $_POST;
+        else //Resto de veces
+             $_POST = $_SESSION['post'];
+
+        // Ruta URL desde la que ejecutamos el script
+        $myURL='?c=Tareas&a=Buscar&'; 
+
+        $nElementosxPagina = 2;
+
+        // Calculamos el n�mero de p�gina que mostraremos
+        if (isset($_GET['pag']))
+        {
+                // Leemos de GET el n�mero de p�gina
+                $nPag = $_GET['pag'];
+        }
+        else 
+        {
+                // Mostramos la primera p�gina
+                $nPag = 1;
+        }
+
+        // Calculamos el registro por el que se empieza en la sentencia LIMIT
+        $nReg = ($nPag-1) * $nElementosxPagina;
+
+        $tareas = array();
+        $tareas =  $this->model-> GetBusqueda($condicion, $nReg, $nElementosxPagina);
+
+        $totalRegistros =$this->model->  GetNumRegistrosBusqueda($condicion);
+
+        if($totalRegistros > 0){
+                $totalPaginas = $totalRegistros/$nElementosxPagina;
+
+                if(is_float($totalPaginas)){
+                        $totalPaginas = intval($totalPaginas);
+                        $totalPaginas++;
+                }
+
+                //Muestra Formulario lista
+                     $this->Ver('Listado de tareas',
                     CargaVista('VistaListar', array(
                         'nPag'=>$nPag,
                         'list'=>$tareas,
                         'myURL'=>$myURL,
                         'totalPaginas'=>$totalPaginas)));
 
-                      }
+                     
 
-            } else {
-              $this->Ver('Buscar', CargaVista('buscar'));
+
+        }
+        else{
+                include_once VIEW_PATH.'nohaydatos.php';
+
             }
-        
     }
-      
-      
-    }//Fin buscar
     
 }

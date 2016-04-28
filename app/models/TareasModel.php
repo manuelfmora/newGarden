@@ -130,7 +130,8 @@ function GetTareasList($nReg, $nElementosxPagina) {
             }
 
             return $provincias;
-    }	
+    }
+
     /**
     *funcion agregar(agrega un nuevo tarea a nuestra lista de tareas) 
     * @param unknown_type $datos
@@ -344,6 +345,50 @@ function GetTareasList($nReg, $nElementosxPagina) {
 
        return $line['nombre'];
    }
+   //-------------------------------------------------------------------------
+   /**
+    * Función que devuelve un array con los datos que coincidan con la búsqueda
+    * @param String $condicion Requisitos que tiene que cumplir la búsqueda
+    * @param Int $nReg Número de registro
+    * @param Int $nElementosxPagina Número de elementos a mostrar por página
+    * @return Array Tareas
+    */
+   public function GetBusqueda($condicion, $nReg, $nElementosxPagina) {
+      
+       /* Creamos una query sencilla */
+       $sql = "SELECT * FROM `tareas` WHERE  $condicion LIMIT $nReg, $nElementosxPagina;";
+       echo $sql;
+        /*Ejecutamos la query*/
+       $query =$this->db->query($sql);       
+ 
+
+       /* Realizamos un bucle para ir obteniendo los resultados */
+       while ($reg =$query->fetch_array(MYSQLI_ASSOC)) {
+           $tareas[] = $reg;
+       }
+       return $tareas;
+   }
+
+   /**
+    * Función que devuelve el número total de registros de la búsqueda
+    * @param String $condicion Requisitos que tiene que cumplir la busqueda
+    * @return Int Número total de regitros
+    */
+   public function GetNumRegistrosBusqueda($condicion) {
+   
+       /* Creamos una query sencilla */
+       $sql = "SELECT count(*) as num FROM `tareas` WHERE  $condicion;";
+
+       /*Ejecutamos la query*/
+       $query =$this->db->query($sql);
+
+       /* Realizamos un bucle para ir obteniendo los resultados */
+       while ($reg = $query->fetch_array(MYSQLI_ASSOC)) {
+           $numRegistros = $reg;
+       }
+       return $numRegistros['num'];
+   }
+
 
            
 
