@@ -5,6 +5,7 @@
 * Versión XX
 */
  ?>
+
 <div class="container">
     <?php if(isset($errores))
     {
@@ -86,9 +87,9 @@
 </div><!-- fin container -->
 
 
-
+<?php if(!isset($errores)):?> 
 <?php if (isset($_GET['pag'])||isset($_POST['ok'])):?> 
- <?php  $paginacion=new Paginacion();?> 
+
 <div class="container">
   
     <table class="table">
@@ -125,11 +126,12 @@
 </div>
 <center>
    
-  
+       <?php  $paginacion=new Paginacion();?> 
       
        <?php $paginacion->MuestraPaginador($nPag, $totalPaginas, $myURL);?> 
 
 
 
 </center>
+<?php endif; ?>  
 <?php endif; ?>  
