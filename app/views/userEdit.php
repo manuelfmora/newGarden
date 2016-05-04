@@ -5,9 +5,9 @@
         <div class="col-md-12">
             <div class="col-md-3 column">
                 <ul class="nav nav-pills nav-stacked well">
-                    <li class="active"><a href="<?=Front_Controller::MakeURL('Login', 'userList')?>"><span class="glyphicon glyphicon-chevron-right"></span> Listar</a></li>
+                    <li class="active"><a href="<?=Front_Controller::MakeURL('Login', 'userList')?>"><span class="glyphicon glyphicon glyphicon-list-alt"></span> Listar</a></li>
 
-                    <li><a href="<?=Front_Controller::MakeURL('Login', 'userInsert')?>" class="active2">&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right"></span> Añadir</a></li>
+                    <li><a href="<?=Front_Controller::MakeURL('Login', 'userInsert')?>" class="active2">&nbsp;&nbsp;<span class="glyphicon glyphicon glyphicon glyphicon-save"></span> Añadir</a></li>
 
                 </ul>
             </div>            

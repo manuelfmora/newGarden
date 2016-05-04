@@ -5,9 +5,9 @@
         <div class="col-md-12">
             <div class="col-md-3 column">
                 <ul class="nav nav-pills nav-stacked well">
-                    <li class="btn-opcionesusuario"> <a href="<?=Front_Controller::MakeURL('Login', 'userList')?>" title="Ver lista de usuarios"><span class="glyphicon glyphicon-chevron-right"></span> Lista</a></li>
+                    <li class="btn-opcionesusuario"> <a href="<?=Front_Controller::MakeURL('Login', 'userList')?>" title="Ver lista de usuarios"><span class="glyphicon glyphicon glyphicon-list-alt"></span> Lista</a></li>
 
-                    <li class="active btn-opcionesusuario"><a href="<?=Front_Controller::MakeURL('Login', 'userInsert')?>" class="active2" title="Añadir usuario">&nbsp;&nbsp;<span class="glyphicon glyphicon-chevron-right"></span> Añadir</a></li>
+                    <li class="active btn-opcionesusuario"><a href="<?=Front_Controller::MakeURL('Login', 'userInsert')?>" class="active2" title="Añadir usuario">&nbsp;&nbsp;<span class="glyphicon glyphicon glyphicon glyphicon-save"></span> Añadir</a></li>
 
                 </ul>
             </div>
