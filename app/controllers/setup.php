@@ -8,7 +8,7 @@ class Setup{
 
 
     public function CreaFichero(){
-        echo 'Entra CREA FICHERO.............<br>';
+       
         //Creamos fichero de configuración
         $fichero = fopen('config.php', 'w');
 
@@ -28,10 +28,9 @@ class Setup{
         fwrite($fichero, $cadena, strlen($cadena));
 
         fclose($fichero);
-        echo 'Entra FICHERO CREADO.............<br>';
         include_once 'config.php';
         if (file_exists('config.php')){
-            echo 'Exiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiste';
+           
         }
         
         $this->db_conf=$GLOBALS['db_conf'];
@@ -40,7 +39,7 @@ class Setup{
                              $this->db_conf['usuario'],
                              $this->db_conf['password'],
                              $this->db_conf['base_datos']);
-        print_r('SERVIDOR: '.$this->db_conf['servidor']);
+       
 
         $mysqli->set_charset("utf8");
         
@@ -49,7 +48,7 @@ class Setup{
             echo "Falló la conexión a MySQL" ;
         }
         else{
-            echo 'Entra en el else de LA MULTICONSULTA..............<BR>';
+            
             $sql = file_get_contents('../install/db.sql');        
 
             if ($mysqli->multi_query($sql)) {
