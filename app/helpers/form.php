@@ -103,31 +103,6 @@ function CreaSelectVacio($name, $opciones, $valorDefecto = '', $tamanho = '') {
     return $html;
 }
 
-/**
- *
- * @param string $name Nombre del campo
- * @param array $opciones Opciones que tiene el select
- * 			clave array=valor option
- * 			valor array=texto option
- * @param string $valorDefecto Valor seleccionado
- * @return string
- */
-//function CreaSelect($name, $opciones, $valorDefecto='')
-//{
-//	$html="\n".'<select name="'.$name.'">';
-//	foreach($opciones as $value=>$text)
-//	{
-//		if ($value==$valorDefecto)
-//			$select='selected="selected"';
-//		else
-//			$select="";
-//		$html.= "\n\t<option value=\"$value\" $select>$text</option>";
-//		
-//	}
-//	$html.="\n</select>";
-//
-//	return $html;
-//}
 
 /**
 * Función que devuelve cuantos registros se muestran por pagina.
@@ -201,19 +176,3 @@ function Valorpostedit($array,$id,$campo)
     }
 }
 
-/**
- * Carga los datos guardados en cada input del formulario de modificar
- * @param String $id ID de la tarea
- * @param String $name Nombre del campo
- * @return String Dato del campo
- */
-//function CargaDatos($id, $name) {
-//
-//    $tarea = GetUnaTarea($id);
-//
-//    if ($name == 'fecha_realizacion') {
-//        $dateRealizacion = new Datetime($tarea[0][$name]);
-//        return date_format($dateRealizacion, 'd-m-Y');
-//    } else
-//        return $tarea[0][$name];
-//}

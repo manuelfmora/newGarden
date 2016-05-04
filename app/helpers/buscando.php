@@ -20,9 +20,6 @@ class Buscando{
         if (!EMPTY($_POST['fechar']))
             $condiciones['fr'] = 'fechar ' . $this->GetOperador($_POST['fechaR_operador']) . ' "' . $this->CambiaFormatoFecha($_POST['fechar']) . '" ';
 
-//        if ($_POST['provincia'] != 'defecto')
-//            $condiciones['prov'] = 'tbl_provincias = ' . $_POST['provincia'];
-
         if (!EMPTY($_POST['telefono']))
             $condiciones['telefono'] = 'telefono LIKE"' . $_POST['telefono'] . '%"';
 
