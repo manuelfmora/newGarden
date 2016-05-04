@@ -13,15 +13,7 @@ Igualmente nuestra aplicación podría tener tantos layouts como deseasemos
 -->
 <html>
     <head>
-<!--        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        
-        <script src="../assets/js/jquery.js" type="text/javascript"></script>
-        <script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>
-        <link href="../assets/css/bootstrap-theme.css" type="text/css" rel="stylesheet">  
-        <link href="../assets/css/bootstrap.min.css" type="text/css" rel="stylesheet">
-        <link href="../assets/css/mi.css" type="text/css" rel="stylesheet">-->
+
     <meta charset="utf-8">
 
     <link rel="icon" type="image/png" href="../assets/bootstrap/img/profile.png" />

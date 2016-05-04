@@ -1,7 +1,7 @@
 <?php
 /**
 * Autor Manuel Francisco Mora Martín.
-* Creación 03 mayo 2016.
+* Creación 04 mayo 2016
 * Versión 2.0
 */
  ?>
