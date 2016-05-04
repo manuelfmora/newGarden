@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-04-2016 a las 17:49:39
+-- Tiempo de generación: 04-05-2016 a las 13:44:53
 -- Versión del servidor: 5.6.26
 -- Versión de PHP: 5.6.12
 
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `tareas` (
   `fechar` date DEFAULT NULL,
   `anotacionesa` varchar(80) COLLATE utf8_spanish_ci DEFAULT NULL,
   `anotacionesp` varchar(80) COLLATE utf8_spanish_ci DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `tareas`
@@ -50,7 +50,11 @@ CREATE TABLE IF NOT EXISTS `tareas` (
 
 INSERT INTO `tareas` (`id`, `descripcion`, `nombre`, `telefono`, `correo`, `direccion`, `poblacion`, `codigo_postal`, `provincia`, `estado`, `fechac`, `operario`, `fechar`, `anotacionesa`, `anotacionesp`) VALUES
 (11, 'Tala de arboles', 'Antonio Martín Ramirez', 959314578, 'anmar@gmail.com', 'Calle Velázquez Nº 54', 'El Portil (Punta Umbria)', 21459, '21', 'Realizada', '2015-12-09', 'Antoni Gomez Perez', '2015-12-09', 'La tarea tiene que realizarse a partir de las doce', 'Cliente satisfecho.'),
-(12, 'Arreglo de aspesores', 'Antonia Mora Bebia', 959318956, 'anmo@gmial.com', 'Avda. Andalucía Nº15', 'Gibraleón', 21500, '21', 'Cancelada', '2015-12-09', 'Pepe Perez Gomez', '2015-12-09', '', '');
+(12, 'Arreglo de aspesores', 'Antonia Mora Bebia', 959318956, 'anmo@gmial.com', 'Avda. Andalucía Nº15', 'Gibraleón', 21500, '21', 'Cancelada', '2015-12-09', 'Pepe Perez Gomez', '2015-12-09', '', ''),
+(13, 'Tarea', 'Manuel Francisco Mora Martín', 607535968, 'mfmora2@gmail.com', 'Avda. Andalucía Nº85 2º', 'Gibraleón', 21500, '01', 'Pendiente', '2016-05-04', 'Manuel Francisco', '2016-05-05', '', NULL),
+(14, 'Tarea1', 'Manuel Francisco Martín', 959301156, 'mfmora2@gmail.com', 'Avda. Andalucía Nº85 2º', 'Gibraleón', 21500, '19', 'Pendiente', '2016-05-04', 'Antonio Perez Gutierrez', '2016-05-05', '', NULL),
+(15, 'Tarea2', 'Pepe Ramos Bebeia', 959304545, 'mf@hotmail.com', 'Calle Velázquez Nº 54', 'Lepe', 23500, '21', 'Pendiente', '2016-05-04', 'Antonio Gomez Gomez', '2016-05-05', '', NULL),
+(16, 'Tarea3', 'Manuel Francisco Mora Martín', 959301156, 'mfmora2@gmail.com', 'Avda. Andalucía Nº85 2º', 'Gibraleón', 21500, '18', 'Pendiente', '2016-05-04', 'Francisco Gomez Martín', '2016-05-05', '', NULL);
 
 --
 -- Disparadores `tareas`
@@ -186,7 +190,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `tareas`
 --
 ALTER TABLE `tareas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --

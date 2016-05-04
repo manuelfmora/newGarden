@@ -1,8 +1,6 @@
 <?php
 
-/**
- * HELP funciones usadas en la paginación
- */
+
 class Paginacion{
     
     

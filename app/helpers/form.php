@@ -55,7 +55,7 @@ function Valor($array,$campo)
  * @return string
  */
 function CreaSelect($name, $opciones, $valorDefecto=''){
-	$html="\n".'<select name="'.$name.'">';
+	$html="\n".'<select class="form-control" name="'.$name.'">';
 	foreach($opciones as $key=>$value)
 	{
 		if ($key==$valorDefecto)

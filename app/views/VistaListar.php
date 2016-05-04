@@ -9,7 +9,7 @@
     <table class="table">
         <tr>
             <td>
-                <h3>ID-Tareas</h3>              
+                <h3>Tareas</h3>              
             </td>
             <td>
                 <h3 >Acciones a Realizar</h3>  
@@ -23,7 +23,7 @@
     <?php foreach($list as $task) : ?>
       <tr>
         <td>           
-          <a href="?c=Tareas&a=Show&id=<?= $task['id']?>"><?php echo $task['id'].' '.$task['descripcion'];?></a>
+          <a href="?c=Tareas&a=Show&id=<?= $task['id']?>"><?php echo $task['descripcion'];?></a>
         </td>
         <td>
           <a href="?c=Tareas&a=Estado&id=<?= $task['id']?>"><button class="btn btn-primary right botonwidth"><?php echo $task['estado'];?></button></a>

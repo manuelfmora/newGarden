@@ -43,7 +43,8 @@ class Tareas {
     
     public function Inicio()
     {
-        if (!file_exists('config.php')) { //Si no existe el fichero de configuración, accede al instalador
+       //Si no existe el fichero de configuración, accede al instalador
+        if (!file_exists('config.php')) { 
             
             if(!$_POST){
                
@@ -54,8 +55,7 @@ class Tareas {
                
                 $this->controller=new Setup();
                 $this->controller->CreaFichero();
-                if (file_exists('config.php')){
-                    
+                if (file_exists('config.php')){                    
                     
                     $this->Ver('Página de inicio', CargaVista('inicio'));
                 }
@@ -71,9 +71,6 @@ class Tareas {
     /**
      * Muestra la lista de tareas
      */
-    /**
- * CONTROLADOR de listar tareas
- */
     public function Listar()
     { 
         if (!isset($_SESSION['loginok'])) {
@@ -81,9 +78,8 @@ class Tareas {
             include (CTRL_PATH.'login.php');
             $this->controllerlogin=new Login();
             $this->controllerlogin->login();
-        } else { 
-            
-//           include (HELPERS_PATH.'paginacion.php');
+        } else {             
+
             //PAGINACIÓN
             // Ruta URL desde la que ejecutamos el script
             $myURL = '?c=Tareas&a=Listar&'; //Con contralador frontal
@@ -123,8 +119,9 @@ class Tareas {
         }
 
     }
+    
      /**
-    * Función que permite editar una tarea. Carga la vista "edit". Tiene en cuenta errores y si se modifica.
+    * Función que permite editar una tarea.
     */
     public function Edit()
     {
@@ -283,7 +280,7 @@ class Tareas {
       
     }
       /**
-    * Función que permite modificar el estado de una tarea, así como sus comentarios. Carga la vista "statusview".
+    * Función que permite modificar el estado de una tarea, así como sus comentarios. 
     */
     public function Estado()
     {
@@ -303,7 +300,7 @@ class Tareas {
     }
   
     /**
-    * Función que permite borrar una determinada tarea. Carga la vista "deleteview".
+    * Función que permite borrar una determinada tarea. 
     */
     public function Delete()
     {
@@ -343,6 +340,11 @@ class Tareas {
       return $field;  
 
     }
+    
+      /**
+    * Función que saca la información de un formulario con los datos de la fecha.
+    * @return devuelve un array con todos los campos del formulario indexados.
+    */
     private function getFormok()
     { 
       
@@ -366,6 +368,13 @@ class Tareas {
       return $field;  
 
     }
+    
+    /**
+     * Función saca la lista de errores
+     * @param type $array
+     * @return string
+     */
+    
     private function getErrores($array)
     {
       $errores = [];
@@ -397,18 +406,6 @@ class Tareas {
           $error = true;
         }
       }
-//       if(!isset($array['fechac']) || $array['fechac'] == "")
-//      {
-//        $errores[] = "El campo 'Fecha de Creación' debe estar relleno.";
-//        $error = true;
-//      } else {
-//        if (!$this->FormatoFechaCorrecto($array['fechac']))
-//        {
-//          $errores['formato'] = "'Formato de fecha de creación incorrecta'";
-//          $error = true;
-//        }
-//      }
-
       if(!isset($array['nombre']) || $array['nombre'] == "")
       {
         $errores[] = "El campo 'Nombre' debe estar relleno.";
@@ -591,7 +588,6 @@ class Tareas {
                                 'igual' => '=');
 
         //Cargamos modelo de a consulta de busqueda
-//        include_once MODEL_PATH.'buscar.php';
 
         $errores = Array();
         $correcto = TRUE;
@@ -621,7 +617,7 @@ class Tareas {
                 }
 
             if(! $correcto){
-//                include_once VIEW_PATH.'buscar.php';             
+            
                   
              $this->Ver('Buscar', CargaVista('buscar', array(
                     'provincias'=>$Provincias,                 
@@ -630,98 +626,13 @@ class Tareas {
                    )));
             }
 
-            else{//Empieza la consulta
-          
-//                  $this->buscar=new Buscando();
-                  
-//                $condicion =$this->condicion= $this->buscar->CreaCondicionConsulta();
+            else{//Empieza la consulta          
+
                 $condicion=  $this->getCondicion();
-//                echo "<pre>$condicion</pre>";
+
            
                 if (! EMPTY($condicion)){
-                    $this-> buscarLista();
-//                    echo 'ENTRAAAAAAAAAAAAAAAAAAAAAAA';
-//                    //Si se ha introducido algún campo de condición
-//                    //PAGINACIÓN
-//                        if($_POST)//Primera vez
-//                             $_SESSION['post'] = $_POST;
-//                        else //Resto de veces
-//                             $_POST = $_SESSION['post'];
-//
-//                        // Ruta URL desde la que ejecutamos el script
-//                        $myURL='?c=Tareas&a=Buscar&'; 
-//
-//                        $nElementosxPagina = 2;
-//
-//                        // Calculamos el n�mero de p�gina que mostraremos
-//                        if (isset($_GET['pag']))
-//                        {
-//                                // Leemos de GET el n�mero de p�gina
-//                                $nPag = $_GET['pag'];
-//                        }
-//                        else 
-//                        {
-//                                // Mostramos la primera p�gina
-//                                $nPag = 1;
-//                        }
-//
-//                        // Calculamos el registro por el que se empieza en la sentencia LIMIT
-//                        $nReg = ($nPag-1) * $nElementosxPagina;
-//
-//                        $tareas = array();
-//                        $tareas = $this->model-> GetBusqueda($condicion, $nReg, $nElementosxPagina);
-//
-//                        $totalRegistros =$this->model->  GetNumRegistrosBusqueda($condicion);
-//
-//                        if($totalRegistros > 0){
-//                                $totalPaginas = $totalRegistros/$nElementosxPagina;
-//
-//                                if(is_float($totalPaginas)){
-//                                        $totalPaginas = intval($totalPaginas);
-//                                        $totalPaginas++;
-//                                }
-//
-//                                //Muestra Formulario lista
-//                                //Muestra Vista lista
-//                            $Provincias =  $this->model->GetProvincias();
-//
-//                             $opcionesfecha = Array(
-//                                                     'mayor' => '>',
-//                                                     'mayorigual' => '>=',
-//                                                     'menor' => '<',
-//                                                     'menorigual' => '<=',
-//                                                     'igual' => '=');
-//                                $this->Ver('Listado de tareas',
-//                                       CargaVista('buscar', array(
-//                                           'provincias'=>$Provincias,                 
-//                                           'opcionesfecha'=>$opcionesfecha,
-//                                           'nPag'=>$nPag,
-//                                           'list'=>$tareas,
-//                                           'myURL'=>$myURL,
-//                                           'totalPaginas'=>$totalPaginas))); 
-
-
-//                        }
-//                        else{
-//                            
-//                                $Provincias =  $this->model->GetProvincias();
-//
-//                                $opcionesfecha = Array(
-//                                                        'mayor' => '>',
-//                                                        'mayorigual' => '>=',
-//                                                        'menor' => '<',
-//                                                        'menorigual' => '<=',
-//                                                        'igual' => '=');
-//
-//                                $errores['nodatos']="NO EXISTEN DATOS GUARDADOS CON ESAS CARACTERÍSTICAS";
-//
-//                                  $this->Ver('Buscar', CargaVista('buscar', array(
-//                                'provincias'=>$Provincias,                 
-//                                'opcionesfecha'=>$opcionesfecha,
-//                                'errores'=>$errores )));
-//                        }
-//     
-                    
+                    $this-> buscarLista();                 
                     
                 }
                 else{
@@ -742,20 +653,17 @@ class Tareas {
       
       
     }//Fin buscar
+    
+    /**
+     * Devuelve la condición de la consulta
+     * @return type
+     */
     public function getCondicion(){
         return $this->buscar->CreaCondicionConsulta();
     }
 
     public function buscarLista(){
-//           $a=$this->contador;
-//           echo 'CONTADOR'.$a;
-//        if($a==0){
-//            echo 'ENTRA EN CONTADOR..............<br>';
-//        $condicion=  $this->getCondicion();
-//        $b=$this->contador=1;
-//         echo 'Contador..............<br>'.$b;
-//        }
-//        echo 'CONDICION: '.$condicion;
+
         if (!isset($_SESSION['loginok'])) {
            //Si no esta logeado cargamos la vista de login.
             include (CTRL_PATH.'login.php');
@@ -763,275 +671,83 @@ class Tareas {
             $this->controllerlogin->login();
         } else { 
                
-          if($_POST)//Primera vez
-                  $_SESSION['post'] = $_POST;
-             else //Resto de veces
-                  $_POST = $_SESSION['post'];
-            
-//                $condicion = $this->buscar->CreaCondicionConsulta();
-//           include (HELPERS_PATH.'paginacion.php');
-            //PAGINACIÓN
-            // Ruta URL desde la que ejecutamos el script
-            $myURL = '?c=Tareas&a=buscarLista&'; //Con contralador frontal
-
-            $nElementosxPagina = 2;
-
-            // Calculamos el número de página que mostraremos            
-            if (isset($_GET['pag'])) {
-                // Leemos de GET el número de página
-                $nPag = $_GET['pag'];
-            } else {
-                // Mostramos la primera página
-                $nPag = 1;
-            }
-         $condicion=  $this->getCondicion();
-            // Calculamos el registro por el que se empieza en la sentencia LIMIT
-            $nReg = ($nPag - 1) * $nElementosxPagina;            
-
-           $tareas = array();
-            $tareas =  $this->model-> GetBusqueda($condicion, $nReg, $nElementosxPagina);
-
-            $totalRegistros =$this->model-> GetNumRegistrosBusqueda($condicion);
-        if($totalRegistros > 0){
-	$totalPaginas = $totalRegistros/$nElementosxPagina;
-
-	if(is_float($totalPaginas)){
-		$totalPaginas = intval($totalPaginas);
-		$totalPaginas++;
-	}
-
-	   //Muestra Vista lista
-           $Provincias =  $this->model->GetProvincias();
-
-                    $opcionesfecha = Array(
-                                            'mayor' => '>',
-                                            'mayorigual' => '>=',
-                                            'menor' => '<',
-                                            'menorigual' => '<=',
-                                            'igual' => '=');
-             $this->Ver('Listado de tareas',
-                    CargaVista('Buscar', array(
-                           'provincias'=>$Provincias,                 
-                    'opcionesfecha'=>$opcionesfecha,
-                        'nPag'=>$nPag,
-                        'list'=>$tareas,
-                        'myURL'=>$myURL,
-                        'totalPaginas'=>$totalPaginas)));
+                if($_POST)//Primera vez
+                        $_SESSION['post'] = $_POST;
+                   else //Resto de veces
+                        $_POST = $_SESSION['post'];
 
 
-        }
-        else{
+                  //PAGINACIÓN
+                  // Ruta URL desde la que ejecutamos el script
+                  $myURL = '?c=Tareas&a=buscarLista&'; //Con contralador frontal
+
+                  $nElementosxPagina = 2;
+
+                  // Calculamos el número de página que mostraremos            
+                  if (isset($_GET['pag'])) {
+                      // Leemos de GET el número de página
+                      $nPag = $_GET['pag'];
+                  } else {
+                      // Mostramos la primera página
+                      $nPag = 1;
+                  }
+               $condicion=  $this->getCondicion();
+                  // Calculamos el registro por el que se empieza en la sentencia LIMIT
+                  $nReg = ($nPag - 1) * $nElementosxPagina;            
+
+                 $tareas = array();
+                  $tareas =  $this->model-> GetBusqueda($condicion, $nReg, $nElementosxPagina);
+
+                  $totalRegistros =$this->model-> GetNumRegistrosBusqueda($condicion);
+              if($totalRegistros > 0){
+              $totalPaginas = $totalRegistros/$nElementosxPagina;
+
+              if(is_float($totalPaginas)){
+                      $totalPaginas = intval($totalPaginas);
+                      $totalPaginas++;
+              }
+
+                 //Muestra Vista lista
                  $Provincias =  $this->model->GetProvincias();
 
-                    $opcionesfecha = Array(
-                                            'mayor' => '>',
-                                            'mayorigual' => '>=',
-                                            'menor' => '<',
-                                            'menorigual' => '<=',
-                                            'igual' => '=');
-                    
-                    $errores['nodatos']="NO EXISTEN DATOS GUARDADOS CON ESAS CARACTERÍSTICAS";
-
-                      $this->Ver('Buscar', CargaVista('buscar', array(
-                    'provincias'=>$Provincias,                 
-                    'opcionesfecha'=>$opcionesfecha,
-                    'errores'=>$errores )));
-
-        }
-	
+                $opcionesfecha = Array(
+                                        'mayor' => '>',
+                                        'mayorigual' => '>=',
+                                        'menor' => '<',
+                                        'menorigual' => '<=',
+                                        'igual' => '=');
+                   $this->Ver('Listado de tareas',
+                          CargaVista('Buscar', array(
+                                 'provincias'=>$Provincias,                 
+                          'opcionesfecha'=>$opcionesfecha,
+                              'nPag'=>$nPag,
+                              'list'=>$tareas,
+                              'myURL'=>$myURL,
+                              'totalPaginas'=>$totalPaginas)));
 
 
+              }
+              else{
+                       $Provincias =  $this->model->GetProvincias();
 
-         
+                          $opcionesfecha = Array(
+                                                  'mayor' => '>',
+                                                  'mayorigual' => '>=',
+                                                  'menor' => '<',
+                                                  'menorigual' => '<=',
+                                                  'igual' => '=');
+
+                          $errores['nodatos']="NO EXISTEN DATOS GUARDADOS CON ESAS CARACTERÍSTICAS";
+
+                            $this->Ver('Buscar', CargaVista('buscar', array(
+                          'provincias'=>$Provincias,                 
+                          'opcionesfecha'=>$opcionesfecha,
+                          'errores'=>$errores )));
+
+              }         
         }
         
     }
 
-    public function ListarBuscar($condicion)
-    { 
-//        if (!isset($_SESSION['loginok'])) {
-//           //Si no esta logeado cargamos la vista de login.
-//            include (CTRL_PATH.'login.php');
-//            $this->controllerlogin=new Login();
-//            $this->controllerlogin->login();
-//        } else { 
-//               
-//           
-////           include (HELPERS_PATH.'paginacion.php');
-//            //PAGINACIÓN
-//            // Ruta URL desde la que ejecutamos el script
-//            $myURL = '?c=Tareas&a=buscarLista&'; //Con contralador frontal
-//
-//            $nElementosxPagina = 2;
-//
-//            // Calculamos el número de página que mostraremos            
-//            if (isset($_GET['pag'])) {
-//                // Leemos de GET el número de página
-//                $nPag = $_GET['pag'];
-//            } else {
-//                // Mostramos la primera página
-//                $nPag = 1;
-//            }
-//        
-//            // Calculamos el registro por el que se empieza en la sentencia LIMIT
-//            $nReg = ($nPag - 1) * $nElementosxPagina;            
-//
-//           $tareas = array();
-//            $tareas =  $this->model-> GetBusqueda($condicion, $nReg, $nElementosxPagina);
-//
-//            $totalRegistros =$this->model-> GetNumRegistrosBusqueda($condicion);
-//        if($totalRegistros > 0){
-//	$totalPaginas = $totalRegistros/$nElementosxPagina;
-//
-//	if(is_float($totalPaginas)){
-//		$totalPaginas = intval($totalPaginas);
-//		$totalPaginas++;
-//	}
-//
-//	   //Muestra Vista lista
-//             $this->Ver('Listado de tareas',
-//                    CargaVista('buscarLista', array(
-//                        'nPag'=>$nPag,
-//                        'list'=>$tareas,
-//                        'myURL'=>$myURL,
-//                        'totalPaginas'=>$totalPaginas)));
-//
-//
-//        }
-//        else{
-//                 $Provincias =  $this->model->GetProvincias();
-//
-//                    $opcionesfecha = Array(
-//                                            'mayor' => '>',
-//                                            'mayorigual' => '>=',
-//                                            'menor' => '<',
-//                                            'menorigual' => '<=',
-//                                            'igual' => '=');
-//                    
-//                    $errores['nodatos']="NO EXISTEN DATOS GUARDADOS CON ESAS CARACTERÍSTICAS";
-//
-//                      $this->Ver('Buscar', CargaVista('buscar', array(
-//                    'provincias'=>$Provincias,                 
-//                    'opcionesfecha'=>$opcionesfecha,
-//                    'errores'=>$errores )));
-//
-//        }
-//	
-//
-//
-//
-//         
-//        }
-
-    }
-    
-//    public function paginacionBuscar($condicion){
-//        
-//         if (!isset($_SESSION['loginok'])) {
-//           //Si no esta logeado cargamos la vista de login.
-//            include (CTRL_PATH.'login.php');
-//            $this->controllerlogin=new Login();
-//            $this->controllerlogin->login();
-//        } else { 
-//            
-////           include (HELPERS_PATH.'paginacion.php');
-//            //PAGINACIÓN
-//            // Ruta URL desde la que ejecutamos el script
-//            $myURL = '?c=Tareas&a=Buscar&'; //Con contralador frontal
-//
-//            $nElementosxPagina = 2;
-//
-//            // Calculamos el número de página que mostraremos            
-//            if (isset($_GET['pag'])) {
-//                // Leemos de GET el número de página
-//                $nPag = $_GET['pag'];
-//            } else {
-//                // Mostramos la primera página
-//                $nPag = 1;
-//            }
-//        
-//            // Calculamos el registro por el que se empieza en la sentencia LIMIT
-//            $nReg = ($nPag - 1) * $nElementosxPagina;            
-//
-////            $tareas =$this->model->GetTareasList($nReg, $nElementosxPagina);
-////
-////            $totalRegistros =$this->model-> GetNumRegistrosTareas();
-//
-//       
-//        
-////             
-////        if($_POST)//Primera vez
-////             $_SESSION['post'] = $_POST;
-////        else //Resto de veces
-////             $_POST = $_SESSION['post'];
-////
-////        // Ruta URL desde la que ejecutamos el script
-////        $myURL='?c=Tareas&a=buscarLista&'; 
-////
-////        $nElementosxPagina = 2;
-////
-////        // Calculamos el número de página que mostraremos
-////        if (isset($_GET['pag']))
-////        {
-////                // Leemos de GET el número de página
-////                $nPag = $_GET['pag'];
-////        }
-////        else 
-////        {
-////                // Mostramos la primera p�gina
-////                $nPag = 1;
-////        }
-////
-////        // Calculamos el registro por el que se empieza en la sentencia LIMIT
-////        $nReg = ($nPag-1) * $nElementosxPagina;
-////
-//        $tareas = array();
-//        $tareas =  $this->model-> GetBusqueda($condicion, $nReg, $nElementosxPagina);
-//        
-//        $totalRegistros =$this->model->  GetNumRegistrosBusqueda($condicion);
-//        echo 'Numero de registros',$totalRegistros;
-//       
-//
-//        if($totalRegistros > 0){
-//                $totalPaginas = $totalRegistros/$nElementosxPagina;
-//
-//                if(is_float($totalPaginas)){
-//                        $totalPaginas = intval($totalPaginas);
-//                        $totalPaginas++;
-//                }
-//                echo 'ENTRA EN LISTA PAGINA';
-//                
-//                //Muestra Formulario lista
-//                     $this->Ver('Listado de Busqueda',
-//                    CargaVista('buscar', array(
-//                        '$nReg'=>$nReg,
-//                        'list'=>$tareas,
-//                        'myURL'=>$myURL,
-//                        'totalPaginas'=>$totalPaginas)));
-//
-//                     
-//
-//
-//        }
-//        else{
-//                    $Provincias =  $this->model->GetProvincias();
-//
-//                    $opcionesfecha = Array(
-//                                            'mayor' => '>',
-//                                            'mayorigual' => '>=',
-//                                            'menor' => '<',
-//                                            'menorigual' => '<=',
-//                                            'igual' => '=');
-//                    
-//                    $errores['nodatos']="NO EXISTEN DATOS GUARDADOS CON ESAS CARACTERÍSTICAS";
-//
-//                      $this->Ver('Buscar', CargaVista('buscar', array(
-//                    'provincias'=>$Provincias,                 
-//                    'opcionesfecha'=>$opcionesfecha,
-//                    'errores'=>$errores )));
-//
-//            }
-//        }
-//    }
-//    
+  
 }

@@ -107,8 +107,11 @@
     </fieldset>
   <!-- -------------------------------- -->
     <div>
-      <input class="btn btn-default btn-lg" type="submit" value="Confirmar" >
-      <a href="?c=Tareas&a=Listar"><button class="btn btn-default btn-lg" type="button">Cancelar</button></a>
+    <br><br>
+    <center>
+      <input class="btn btn-primary " type="submit" value="Confirmar" name="add">
+      <a href="?c=Tareas&aInicio="><button class="btn btn-danger" type="button">Cancelar</button></a>
+    </center>
     </div>
   </div>
 </form>

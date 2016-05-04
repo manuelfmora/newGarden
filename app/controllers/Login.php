@@ -165,9 +165,6 @@ class Login {
            $correcto = true;
            $errores = array();
 
-//           include_once MODEL_PATH.'login.php';
-//           include_once HELP_PATH.'help_usuarios.php';
-
            if(!$this->model->ExisteUsuarioByID($_GET['id'])){
                    include_once CTRL_PATH.'error404.php';
            }
@@ -196,7 +193,7 @@ class Login {
                    }
 
                    if(!$correcto){
-                       echo 'Entra en errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr';
+                      
                         $this->controller->Verfuera('Edita Operario',
                                         CargaVista('userEdit_O', array('errores'=>$errores )));
                    }

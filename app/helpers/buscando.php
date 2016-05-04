@@ -39,7 +39,7 @@ class Buscando{
      */
     public function GetOperador($textoOperador) {
 
-        echo 'TEXTO OPERADOR:...........'.$textoOperador;
+       
         switch ($textoOperador) {
             case 'mayor': {
                     return '>';
