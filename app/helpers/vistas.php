@@ -20,15 +20,7 @@ function & CargaVista($vista, array  $variablesDeVista=NULL)
         // Creamos variables que hemos pasado en el array para que sean locales
         // de la función
         extract($variablesDeVista);
-    }
-
-    /* La función anterior hace lo mismo que  el siguiente código */
-    /*
-        foreach($variablesDeVista as $__nombreVariable__=>$__valorVariable__)
-        {   // OJO al doble $
-            $__nombreVariable__=$__valorVariable__;
-        }
-    */
+    }   
     
 	// Interpretamos plantilla
 	ob_start();
