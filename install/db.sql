@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `tareas` (
   `direccion` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `poblacion` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `codigo_postal` int(11) NOT NULL,
+  `tbl_provincias_cod` char(2) NOT NULL,
   `provincia` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `estado` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL,
   `fechac` date DEFAULT NULL,
@@ -161,11 +162,14 @@ INSERT INTO `usuarios` (`id`, `tipo`, `usuario`, `clave`) VALUES
 --
 -- Indices de la tabla `tareas`
 --
-ALTER TABLE `tareas`
-  ADD PRIMARY KEY (`id`);
+/*ALTER TABLE `tareas`
+  ADD PRIMARY KEY (`id`);*/
+ALTER TABLE `tareas`no
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tarea_tbl_provincias_idx` (`tbl_provincias_cod`);
 
 --
--- Indices de la tabla `tbl_provincias`
+-- Indices de la tabla `tbl_provincias`---------
 --
 ALTER TABLE `tbl_provincias`
   ADD PRIMARY KEY (`cod`),
@@ -192,6 +196,10 @@ ALTER TABLE `tareas`
 --
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+
+
+ALTER TABLE `tarea`
+  ADD CONSTRAINT `fk_tarea_tbl_provincias` FOREIGN KEY (`tbl_provincias_cod`) REFERENCES `tbl_provincias` (`cod`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

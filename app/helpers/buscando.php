@@ -15,13 +15,13 @@ class Buscando{
         $condiciones = array();
 
         if (!EMPTY($_POST['fechac']))
-            $condiciones['fc'] = 'fechac ' . $this->GetOperador($_POST['fechac']) . ' "' . $this->CambiaFormatoFecha($_POST['fechac']) . '" ';
+            $condiciones['fc'] = 'fechac ' . $this->GetOperador($_POST['fechaC_operador']) . ' "' . $this->CambiaFormatoFecha($_POST['fechac']) . '" ';
 
-        if (!EMPTY($_POST['fecha_realizacion']))
-            $condiciones['fr'] = 'fechar ' . $this->GetOperador($_POST['fechar']) . ' "' . $this->CambiaFormatoFecha($_POST['fechar']) . '" ';
+        if (!EMPTY($_POST['fechar']))
+            $condiciones['fr'] = 'fechar ' . $this->GetOperador($_POST['fechaR_operador']) . ' "' . $this->CambiaFormatoFecha($_POST['fechar']) . '" ';
 
-        if ($_POST['provincia'] != 'defecto')
-            $condiciones['prov'] = 'tbl_provincias = ' . $_POST['provincia'];
+//        if ($_POST['provincia'] != 'defecto')
+//            $condiciones['prov'] = 'tbl_provincias = ' . $_POST['provincia'];
 
         if (!EMPTY($_POST['telefono']))
             $condiciones['telefono'] = 'telefono LIKE"' . $_POST['telefono'] . '%"';
@@ -39,6 +39,7 @@ class Buscando{
      */
     public function GetOperador($textoOperador) {
 
+        echo 'TEXTO OPERADOR:...........'.$textoOperador;
         switch ($textoOperador) {
             case 'mayor': {
                     return '>';

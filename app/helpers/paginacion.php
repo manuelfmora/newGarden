@@ -17,6 +17,7 @@ class Paginacion{
      * @param String $url
      */
         public function MuestraPaginador($pag_actual, $nPags, $url) {
+           
         // Mostramos paginador 
         echo '<div class="paginador">';
         echo $this->EnlaceAPagina($url, 1, 'Inicio');
@@ -27,7 +28,7 @@ class Paginacion{
         }
         echo $this->EnlaceAPagina($url, $pag_actual + 1, 'Siguiente', $pag_actual < $nPags);
         echo $this->EnlaceAPagina($url, $nPags, 'Fin');
-
+        
 
         echo "</div>";
     }

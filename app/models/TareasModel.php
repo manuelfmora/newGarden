@@ -354,7 +354,7 @@ function GetTareasList($nReg, $nElementosxPagina) {
     * @return Array Tareas
     */
    public function GetBusqueda($condicion, $nReg, $nElementosxPagina) {
-      
+      $tareas='';
        /* Creamos una query sencilla */
        $sql = "SELECT * FROM `tareas` WHERE  $condicion LIMIT $nReg, $nElementosxPagina;";
        echo $sql;
